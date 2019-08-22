@@ -22,7 +22,7 @@ export const changeLoginPassword = password => {
 
 export const login = user => async dispatch => {
     try {
-        let res = await axios.request({
+        const res = await axios.request({
             responseType: 'json',
             url: URL + '/user/login',
             method: 'post',

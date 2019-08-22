@@ -2,7 +2,8 @@ import * as actions from '../actions/types'
 
 const initialState = {
     isDrawerOpen: false,
-    hasSession: localStorage.getItem('miru-session')
+    hasSession: localStorage.getItem('miru-session'),
+    sections: []
 }
 
 const general = (state = initialState, action) => {
@@ -15,6 +16,13 @@ const general = (state = initialState, action) => {
     }
 
     case actions.CHANGE_HAS_SESSION_STATUS: {
+        return {
+            ...state,
+            ...action.payload
+        }
+    }
+
+    case actions.GET_ALL_CONTENT_SECTIONS: {
         return {
             ...state,
             ...action.payload

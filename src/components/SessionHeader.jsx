@@ -41,7 +41,7 @@ export const SessionHeader = props => {
     return (
         <div className={classes.grow}>
             <AppBar
-                position='static'
+                position='fixed'
                 className={clsx(classes.appBar, { [classes.appBarShift]: props.showDrawer })}
             >
                 <Toolbar>

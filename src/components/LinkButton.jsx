@@ -6,7 +6,14 @@ export const LinkButton = props => {
     return (
         <To
             to={props.to}
-            title={<Button color={props.color}>{props.title}</Button>}
+            title={
+                <Button
+                    color={props.color}
+                    variant={props.variant}
+                    className={props.className}
+                >
+                    {props.title}
+                </Button>}
         />
     )
 }

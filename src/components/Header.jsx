@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1
     },
     menuButton: {
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        textTransform: 'none'
     },
     title: {
         flexGrow: 1
@@ -75,14 +76,18 @@ const HeaderComponent = props => {
                         />
                     </Typography>
                     <LinkButton
-                        color='inherit'
+                        color='secondary'
                         to='/registrate'
                         title='Regístrate'
+                        variant='contained'
+                        className={classes.menuButton}
                     />
                     <LinkButton
-                        color='inherit'
+                        color='secondary'
                         to='/inicia-sesion'
                         title='Inicia Sesión'
+                        variant='contained'
+                        className={classes.menuButton}
                     />
                 </Toolbar>
             </AppBar>

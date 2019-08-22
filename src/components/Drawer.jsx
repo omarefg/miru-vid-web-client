@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { ListItemText, ListItemIcon, ListItem, IconButton, Drawer as DrawerUI, List, Typography } from '@material-ui/core'
 import { Mail, MoveToInbox, ChevronRight, ChevronLeft } from '@material-ui/icons'
 import { DRAWER_WIDTH } from '../utils/general'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,9 +67,21 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export const Drawer = props => {
+const DrawerComponent = props => {
     const classes = useStyles()
     const theme = useTheme()
+
+    const [sections, setSections] = useState([])
+
+    useEffect(() => {
+        const getSections = async () => {
+            const sections = await props.actions.getAllSections()
+            setSections(sections)
+        }
+        if (!sections.length) {
+            getSections()
+        }
+    })
 
     return (
         <DrawerUI
@@ -88,17 +103,31 @@ export const Drawer = props => {
                     Secciones
                 </Typography>
                 <IconButton onClick={props.showDrawerHandler}>
-                    {theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
+                    {theme.direction === 'ltr' ? <ChevronLeft/> : <ChevronRight/>}
                 </IconButton>
             </div>
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                {sections.map(({ section_name, section_id }, index) => (
+                    <ListItem button key={section_id}>
+                        <ListItemIcon>{index % 2 === 0 ? <MoveToInbox/> : <Mail/>}</ListItemIcon>
+                        <ListItemText primary={section_name} />
                     </ListItem>
                 ))}
             </List>
         </DrawerUI>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        ...state.general
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    }
+}
+
+export const Drawer = connect(mapStateToProps, mapDispatchToProps)(DrawerComponent)

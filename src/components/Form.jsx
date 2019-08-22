@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
     button: {
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(1),
+        textTransform: 'none'
     }
 }))
 
@@ -22,7 +23,7 @@ export const Form = props => {
                     {props.children}
                     <Button
                         type='submit'
-                        color='primary'
+                        color={props.buttonColor || 'primary'}
                         variant='contained'
                         className={classes.button}
                     >

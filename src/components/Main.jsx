@@ -9,7 +9,9 @@ const useStyles = makeStyles(theme => ({
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
-        })
+        }),
+        backgroundColor: theme.background,
+        height: '100vh'
     },
     mainShift: {
         width: `calc(100% - ${DRAWER_WIDTH}px)`,

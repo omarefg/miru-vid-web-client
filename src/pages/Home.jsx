@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom'
 
 class HomePage extends Component {
     render () {
-        console.log(this.props.hasSession)
         if (!this.props.hasSession) {
             return <Redirect to='/inicia-sesion'/>
         }

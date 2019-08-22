@@ -1,4 +1,6 @@
 import * as actions from './types'
+import axios from 'axios'
+import { URL } from '../utils/webconfig'
 
 export const drawerOpenStatusHandler = () => {
     return {
@@ -12,5 +14,18 @@ export const hasSessionStatusHandler = hasSession => {
         payload: {
             hasSession
         }
+    }
+}
+
+export const getAllSections = () => async () => {
+    try {
+        const sections = await axios.request({
+            responseType: 'json',
+            url: URL + '/section',
+            method: 'get'
+        })
+        return sections.data
+    } catch (error) {
+        throw error
     }
 }

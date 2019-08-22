@@ -6,6 +6,7 @@ import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { Form, Main, Password, FormMessage } from '../components'
 import { TextField, Button } from '@material-ui/core'
+import { Redirect } from 'react-router-dom'
 
 class LoginPage extends Component {
     usernameHandler = event => this.props.actions.changeLoginUsername(event.target.value)
@@ -120,6 +121,9 @@ class LoginPage extends Component {
     }
 
     render () {
+        if (this.props.hasSession) {
+            return <Redirect to='/'/>
+        }
         return (
             <Main>
                 <Helmet>
@@ -129,6 +133,7 @@ class LoginPage extends Component {
                     maxWidth='xs'
                     buttonTitle='Inicia Sesión'
                     onSubmit={this.onSubmit}
+                    buttonColor='secondary'
                 >
                     <TextField
                         id='miru-user-username'
@@ -169,7 +174,8 @@ class LoginPage extends Component {
 const mapStateToProps = state => {
     return {
         ...state.login,
-        justRegistered: state.register.justRegistered
+        justRegistered: state.register.justRegistered,
+        ...state.general
     }
 }
 
